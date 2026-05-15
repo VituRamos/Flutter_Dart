@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:portfolio_1/models/task_model.dart';
 import 'package:portfolio_1/screens/home_page.dart';
 
 void main() async{
 
   //Hive init
   await Hive.initFlutter();
+
+  //Task Adapter
+  Hive.registerAdapter(TaskAdapter());
 
   var box = await Hive.openBox('mybox');
 
@@ -34,10 +38,6 @@ class MyApp extends StatelessWidget {
           backgroundColor: Colors.yellow,
         ),
       ),
-
-
-
-
 
     );
   }
