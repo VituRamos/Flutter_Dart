@@ -9,20 +9,57 @@ class MyProductTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: 300,
       margin: const EdgeInsets.all(10),
       padding: const EdgeInsets.all(25),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.primary,
         borderRadius: BorderRadius.circular(12),
       ),
+
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          //Image
-          Icon(Icons.favorite),
-          //Name
-          Text(product.name),
-          //Description
-          Text(product.description),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              //Image
+              AspectRatio(
+                aspectRatio: 1,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.secondary,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  padding: EdgeInsets.all(25),
+                  width: double.infinity,
+                  child: Icon(Icons.favorite),
+                ),
+              ),
+
+              const SizedBox(height: 25),
+
+              //Name
+              Text(
+                product.name,
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              ),
+
+              const SizedBox(height: 10),
+
+              //Description
+              Text(
+                product.description,
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.inversePrimary,
+                ),
+              ),
+            ],
+          ),
+
+          const SizedBox(height: 25),
+
           //Price + Add to cart buttom
           Text(product.price.toStringAsFixed(2)),
         ],
