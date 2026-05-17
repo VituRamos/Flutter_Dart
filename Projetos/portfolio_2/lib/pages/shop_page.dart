@@ -46,13 +46,16 @@ class ShopPage extends StatelessWidget {
           //Products
           SizedBox(
             height: 550,
-            child: ListView.builder(
-              padding: const EdgeInsets.all(15),
-              scrollDirection: Axis.horizontal,
+            child: PageView.builder(
+              controller: PageController(viewportFraction: 0.85),
               itemCount: products.length,
               itemBuilder: (context, index) {
                 final product = products[index];
-                return MyProductTile(product: product);
+
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: MyProductTile(product: product),
+                );
               },
             ),
           ),

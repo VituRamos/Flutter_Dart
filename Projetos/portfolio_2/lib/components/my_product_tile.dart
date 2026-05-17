@@ -96,15 +96,43 @@ class MyProductTile extends StatelessWidget {
               Text('\$${product.price.toStringAsFixed(2)}'),
 
               //Add to cart button
-              Container(
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.secondary,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: IconButton(
-                  onPressed: () => addToCart(context),
-                  icon: Icon(Icons.add),
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.secondary,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: IconButton(
+                      onPressed: () => addToCart(context),
+                      icon: Icon(Icons.add),
+                    ),
+                  ),
+
+                  // Space between the buttons
+                  const SizedBox(width: 12),
+
+                  //Add to cart button
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.secondary,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: IconButton(
+                      onPressed: () =>
+                          context.read<Shop>().toggleFavorite(product),
+                      icon: Icon(
+                        product.isFavorite
+                            ? Icons.favorite
+                            : Icons.favorite_border,
+                        color: product.isFavorite
+                            ? Colors.red.shade400
+                            : Theme.of(context).colorScheme.inversePrimary,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),

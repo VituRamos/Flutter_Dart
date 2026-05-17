@@ -45,6 +45,16 @@ class MyDrawer extends StatelessWidget {
                   Navigator.pushNamed(context, '/cart_page'),
                 },
               ),
+
+              //Cart tile
+              MyListTile(
+                icon: Icons.favorite,
+                text: "Favorites",
+                onTap: () => {
+                  Navigator.pop(context),
+                  Navigator.pushNamed(context, '/favorite_page'),
+                },
+              ),
             ],
           ),
 

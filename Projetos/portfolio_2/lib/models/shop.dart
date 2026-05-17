@@ -7,40 +7,48 @@ class Shop extends ChangeNotifier {
     Product(
       name: "Product 1",
       price: 99.99,
-      description: "description",
+      description: "Description",
+      isFavorite: false,
       imagePath: 'lib/images/SNKRS1.png',
     ),
 
     Product(
       name: "Product 2",
       price: 99.99,
-      description: "description",
+      description: "Description",
+      isFavorite: false,
       imagePath: 'lib/images/SNKRS2.png',
     ),
 
     Product(
       name: "Product 3",
       price: 99.99,
-      description: "description",
+      description: "Description",
+      isFavorite: false,
       imagePath: 'lib/images/SNKRS3.png',
     ),
 
     Product(
-      name: "Product 3",
+      name: "Product 4",
       price: 99.99,
-      description: "description",
+      description: "Description",
+      isFavorite: false,
       imagePath: 'lib/images/SNKRS4.png',
     ),
   ];
 
   //Cart
   List<Product> _cart = [];
+  List<Product> _favorite = [];
 
   //Get Product
   List<Product> get shop => _shop;
 
   //Get Cart
   List<Product> get cart => _cart;
+
+  //Get Cart
+  List<Product> get favorite => _favorite;
 
   //Add Item To Cart
   void addToCart(Product item) {
@@ -51,6 +59,19 @@ class Shop extends ChangeNotifier {
   //Remove Item To Cart
   void removeFromCart(Product item) {
     _cart.remove(item);
+    notifyListeners();
+  }
+
+  // Toggle Item Favorite
+  void toggleFavorite(Product item) {
+    item.isFavorite = !item.isFavorite;
+
+    if (item.isFavorite) {
+      _favorite.add(item);
+    } else {
+      _favorite.remove(item);
+    }
+
     notifyListeners();
   }
 }
