@@ -1,11 +1,57 @@
 import 'package:flutter/material.dart';
+import 'package:portfolio_2/components/my_button.dart';
 import 'package:portfolio_2/components/my_drawer.dart';
+import 'package:portfolio_2/models/product.dart';
+import 'package:portfolio_2/models/shop.dart';
+import 'package:provider/provider.dart';
 
 class CartPage extends StatelessWidget {
   const CartPage({super.key});
 
+  //Remove Item From Cart
+  void removeItemFromCart(BuildContext context, Product product) {
+    //Ask to user to remove
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        content: const Text("Remove this item from your cart?"),
+        actions: [
+          //Cancel
+          MaterialButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text("Cancel"),
+          ),
+
+          //Confirm
+          MaterialButton(
+            onPressed: () {
+              Navigator.pop(context);
+              context.read<Shop>().removeFromCart(product);
+            },
+            child: const Text("Yes"),
+          ),
+        ],
+      ),
+    );
+  }
+
+  //User Pressed Pay
+  void payButtonPressed(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        content: Text(
+          "User wants to play! Connect this app to your payment backend",
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    //Acess to cart
+    final cart = context.watch<Shop>().cart;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -15,7 +61,40 @@ class CartPage extends StatelessWidget {
         title: const Text("Cart Page"),
       ),
       backgroundColor: Theme.of(context).colorScheme.surface,
-      drawer: const MyDrawer(),
+      body: Column(
+        children: [
+          //Cart List
+          Expanded(
+            child: cart.isEmpty
+                ? Center(child: const Text("Your cart is empty..."))
+                : ListView.builder(
+                    itemCount: cart.length,
+                    itemBuilder: (context, index) {
+                      //Get individual item in cart
+                      final item = cart[index];
+
+                      //Return as a cart tile
+                      return ListTile(
+                        title: Text(item.name),
+                        subtitle: Text(item.price.toStringAsFixed(2)),
+                        trailing: IconButton(
+                          icon: Icon(Icons.remove),
+                          onPressed: () => removeItemFromCart(context, item),
+                        ),
+                      );
+                    },
+                  ),
+          ),
+          //Pay button
+          Padding(
+            padding: const EdgeInsets.all(50),
+            child: MyButton(
+              onTap: () => payButtonPressed(context),
+              child: Text("PAY NOW"),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

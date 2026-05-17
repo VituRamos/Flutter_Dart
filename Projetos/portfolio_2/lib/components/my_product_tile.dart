@@ -1,10 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio_2/models/product.dart';
+import 'package:portfolio_2/models/shop.dart';
+import 'package:provider/provider.dart';
 
 class MyProductTile extends StatelessWidget {
   const MyProductTile({super.key, required this.product});
 
   final Product product;
+
+  //Function add to cart button pressed
+  void addToCart(BuildContext context) {
+    //Ask to user to confirm
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        content: const Text("Add this item to your cart?"),
+        actions: [
+          //Cancel
+          MaterialButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text("Cancel"),
+          ),
+
+          //Confirm
+          MaterialButton(
+            onPressed: () {
+              Navigator.pop(context);
+              context.read<Shop>().addToCart(product);
+            },
+            child: const Text("Yes"),
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +63,7 @@ class MyProductTile extends StatelessWidget {
                   ),
                   padding: EdgeInsets.all(25),
                   width: double.infinity,
-                  child: Icon(Icons.favorite),
+                  child: Image.asset(product.imagePath),
                 ),
               ),
 
@@ -60,8 +89,25 @@ class MyProductTile extends StatelessWidget {
 
           const SizedBox(height: 25),
 
-          //Price + Add to cart buttom
-          Text(product.price.toStringAsFixed(2)),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              //Price
+              Text('\$${product.price.toStringAsFixed(2)}'),
+
+              //Add to cart button
+              Container(
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.secondary,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: IconButton(
+                  onPressed: () => addToCart(context),
+                  icon: Icon(Icons.add),
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );
