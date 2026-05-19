@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio_2/models/product.dart';
-import 'package:portfolio_2/models/shop.dart';
+import 'package:portfolio_2/providers/shop_provider.dart';
 import 'package:provider/provider.dart';
 
 class MyProductTile extends StatelessWidget {
@@ -26,7 +26,7 @@ class MyProductTile extends StatelessWidget {
           MaterialButton(
             onPressed: () {
               Navigator.pop(context);
-              context.read<Shop>().addToCart(product);
+              context.read<ShopProvider>().addToCart(product);
             },
             child: const Text("Yes"),
           ),
@@ -121,7 +121,7 @@ class MyProductTile extends StatelessWidget {
                     ),
                     child: IconButton(
                       onPressed: () =>
-                          context.read<Shop>().toggleFavorite(product),
+                          context.read<ShopProvider>().toggleFavorite(product),
                       icon: Icon(
                         product.isFavorite
                             ? Icons.favorite

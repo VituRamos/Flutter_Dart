@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio_2/components/my_button.dart';
 import 'package:portfolio_2/models/product.dart';
-import 'package:portfolio_2/models/shop.dart';
+import 'package:portfolio_2/providers/shop_provider.dart';
 import 'package:provider/provider.dart';
 
 class CartPage extends StatelessWidget {
@@ -25,7 +25,7 @@ class CartPage extends StatelessWidget {
           MaterialButton(
             onPressed: () {
               Navigator.pop(context);
-              context.read<Shop>().removeFromCart(product);
+              context.read<ShopProvider>().removeFromCart(product);
             },
             child: const Text("Yes"),
           ),
@@ -49,7 +49,7 @@ class CartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //Acess to cart
-    final cart = context.watch<Shop>().cart;
+    final cart = context.watch<ShopProvider>().cart;
 
     return Scaffold(
       appBar: AppBar(

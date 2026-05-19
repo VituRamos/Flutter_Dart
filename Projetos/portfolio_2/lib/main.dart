@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:portfolio_2/models/shop.dart';
+import 'package:portfolio_2/providers/shop_provider.dart';
 import 'package:portfolio_2/pages/cart_page.dart';
 import 'package:portfolio_2/pages/favorite_page.dart';
 import 'package:portfolio_2/pages/intro_page.dart';
 import 'package:portfolio_2/pages/shop_page.dart';
-import 'package:portfolio_2/themes/light_mode.dart';
+import 'package:portfolio_2/theme/theme.dart';
+import 'package:portfolio_2/providers/theme_provider.dart';
 import 'package:portfolio_2/utils/app_routes.dart';
 import 'package:provider/provider.dart';
 
 void main() {
   runApp(
-    ChangeNotifierProvider(create: (context) => Shop(), child: const MyApp()),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => ShopProvider()),
+        ChangeNotifierProvider(create: (context) => ThemeProvider()),
+      ],
+      child: const MyApp(),
+    ),
   );
 }
 
@@ -22,7 +29,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: const IntroPage(),
-      theme: lightmode,
+      theme: lightMode,
 
       routes: {
         AppRoutes.IntroPage: (context) => const IntroPage(),

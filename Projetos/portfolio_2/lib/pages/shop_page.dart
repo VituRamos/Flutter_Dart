@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio_2/components/my_drawer.dart';
 import 'package:portfolio_2/components/my_product_tile.dart';
-import 'package:portfolio_2/models/shop.dart';
+import 'package:portfolio_2/providers/shop_provider.dart';
 import 'package:provider/provider.dart';
 
 class ShopPage extends StatelessWidget {
@@ -9,7 +9,7 @@ class ShopPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final products = context.watch<Shop>().shop;
+    final products = context.watch<ShopProvider>().shop;
 
     return Scaffold(
       appBar: AppBar(
@@ -20,6 +20,11 @@ class ShopPage extends StatelessWidget {
         title: const Text("Shop Page"),
         actions: [
           //Go to cart button
+          IconButton(
+            onPressed: () => Navigator.pushNamed(context, '/cart_page'),
+            icon: Icon(Icons.shopping_cart),
+          ),
+          //Toggle theme button
           IconButton(
             onPressed: () => Navigator.pushNamed(context, '/cart_page'),
             icon: Icon(Icons.shopping_cart),

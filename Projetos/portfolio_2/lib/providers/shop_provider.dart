@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:portfolio_2/models/product.dart';
 
-class Shop extends ChangeNotifier {
+class ShopProvider extends ChangeNotifier {
   //Products
   final List<Product> _shop = [
     Product(

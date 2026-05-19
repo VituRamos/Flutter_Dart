@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio_2/models/product.dart';
-import 'package:portfolio_2/models/shop.dart';
+import 'package:portfolio_2/providers/shop_provider.dart';
 import 'package:provider/provider.dart';
 
 class FavoritePage extends StatelessWidget {
@@ -24,7 +24,7 @@ class FavoritePage extends StatelessWidget {
           MaterialButton(
             onPressed: () {
               Navigator.pop(context);
-              context.read<Shop>().toggleFavorite(product);
+              context.read<ShopProvider>().toggleFavorite(product);
             },
             child: const Text("Yes"),
           ),
@@ -36,7 +36,7 @@ class FavoritePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //Acess to favorites
-    final favorites = context.watch<Shop>().favorite;
+    final favorites = context.watch<ShopProvider>().favorite;
 
     return Scaffold(
       appBar: AppBar(
@@ -69,7 +69,7 @@ class FavoritePage extends StatelessWidget {
                             IconButton(
                               icon: Icon(Icons.shopping_cart),
                               onPressed: () {
-                                context.read<Shop>().addToCart(item);
+                                context.read<ShopProvider>().addToCart(item);
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
                                     content: Text(
