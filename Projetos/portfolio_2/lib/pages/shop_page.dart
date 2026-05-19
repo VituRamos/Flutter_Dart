@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:portfolio_2/components/my_drawer.dart';
 import 'package:portfolio_2/components/my_product_tile.dart';
 import 'package:portfolio_2/providers/shop_provider.dart';
+import 'package:portfolio_2/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 
 class ShopPage extends StatelessWidget {
@@ -19,16 +20,24 @@ class ShopPage extends StatelessWidget {
         centerTitle: true,
         title: const Text("Shop Page"),
         actions: [
+          //Toggle theme
+          IconButton(
+            onPressed: () {
+              context.read<ThemeProvider>().toggleTheme();
+            },
+            icon: Icon(
+              context.watch<ThemeProvider>().isDarkMode
+                  ? Icons.light_mode
+                  : Icons.dark_mode,
+            ),
+          ),
+
           //Go to cart button
           IconButton(
             onPressed: () => Navigator.pushNamed(context, '/cart_page'),
             icon: Icon(Icons.shopping_cart),
           ),
           //Toggle theme button
-          IconButton(
-            onPressed: () => Navigator.pushNamed(context, '/cart_page'),
-            icon: Icon(Icons.shopping_cart),
-          ),
         ],
       ),
       backgroundColor: Theme.of(context).colorScheme.surface,

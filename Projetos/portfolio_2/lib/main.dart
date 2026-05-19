@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: const IntroPage(),
-      theme: lightMode,
+      theme: context.watch<ThemeProvider>().themeData,
 
       routes: {
         AppRoutes.IntroPage: (context) => const IntroPage(),
